@@ -69,13 +69,11 @@
       z-index: 100;
     }
     
-    /* The main window container */
     .pixel-window {
       background-color: var(--window-bg);
       border: 2px solid;
       border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
       box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.5);
-      position: absolute; /* Needed for dragging */
     }
 
     /* Title bar of the window */
@@ -87,7 +85,6 @@
       justify-content: space-between;
       align-items: center;
       font-size: 0.8em;
-      cursor: move; /* Indicates this can be dragged */
     }
     
     /* Fake window buttons */
@@ -104,7 +101,6 @@
       font-size: 12px;
     }
 
-    /* General purpose pixel button style */
     .pixel-button {
       background-color: var(--window-bg);
       border: 2px solid;
@@ -121,13 +117,11 @@
       transform: translate(1px, 1px);
     }
     
-    /* Inset border style for avatar */
     .inset-border {
        border: 2px solid;
        border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
     }
 
-    /* Blinking cursor effect */
     .blinking-cursor {
       animation: blink 1s step-end infinite;
     }
@@ -135,15 +129,11 @@
       50% { opacity: 0; }
     }
     
-    /* --- NEW STYLES FOR FEATURES --- */
-
-    /* Prevents text selection while dragging */
     .no-select {
       user-select: none;
       -webkit-user-select: none;
     }
 
-    /* Tooltip styles */
     [data-tooltip] {
         position: relative;
     }
@@ -161,12 +151,26 @@
         white-space: nowrap;
         z-index: 10;
     }
+    
+    /* --- NEW: RESPONSIVE STYLES --- */
+    
+    /* On screens 768px or wider (desktops), make the window draggable */
+    @media (min-width: 768px) {
+      .pixel-window {
+        position: absolute;
+        width: 100%; /* Will be 100% of the max-w-md from parent */
+        max-width: 28rem; /* Equivalent to max-w-md */
+      }
+      .title-bar {
+        cursor: move;
+      }
+    }
   </style>
 </head>
-<body class="min-h-screen p-4 sm:p-8">
+<body class="min-h-screen">
   <div class="fixed top-0 left-0 w-full h-full scanlines pointer-events-none"></div>
 
-  <main class="w-full max-w-md mx-auto">
+  <main class="w-full max-w-md mx-auto p-4 sm:p-8 min-h-screen flex items-center">
     <section id="draggableWindow" class="pixel-window">
       <div class="title-bar">
         <span>C:\LINKS.EXE</span>
@@ -187,45 +191,40 @@
         <div class="mt-6 grid gap-3 text-xs">
           <a href="/cv.pdf" class="pixel-button group flex items-center justify-between p-3" data-tooltip="Download my Curriculum Vitae">
             <span class="flex items-center gap-3">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 2h10v2H6V2zm0 3h12v2H6V5zm0 3h12v2H6V8zm-2 5H2v-2h2v2zm0-3H2V8h2v2zm0-3H2V5h2v2zm0-3H2V2h2v2zm16 14V2h2v16h-2zm-3 2H5v-2h12v2zm-3 0h-2v2h2v-2zm-3 0H8v2h2v-2zm12-2h-2v2h2v-2zm-3-2h-2v2h2v-2zm-9-1h12v2H8v-2zm14 5v-2h2v2h-2zm-5 2H6v2h10v-2zm1-5h2v2h-2v-2zm-1-2v-2h2v2h-2z"/></svg>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><title>Document Icon</title><path d="M6 2h10v2H6V2zm0 3h12v2H6V5zm0 3h12v2H6V8zm-2 5H2v-2h2v2zm0-3H2V8h2v2zm0-3H2V5h2v2zm0-3H2V2h2v2zm16 14V2h2v16h-2zm-3 2H5v-2h12v2zm-3 0h-2v2h2v-2zm-3 0H8v2h2v-2zm12-2h-2v2h2v-2zm-3-2h-2v2h2v-2zm-9-1h12v2H8v-2zm14 5v-2h2v2h-2zm-5 2H6v2h10v-2zm1-5h2v2h-2v-2zm-1-2v-2h2v2h-2z"/></svg>
               <span>CV.PDF</span>
             </span>
             <span class="text-gray-500 group-hover:text-black">[VIEW]</span>
           </a>
-
           <a href="http://www.linkedin.com/in/robin-t-68181b33/" target="_blank" rel="noopener" class="pixel-button group flex items-center justify-between p-3" data-tooltip="View my LinkedIn Profile">
             <span class="flex items-center gap-3">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2h16v2H4V2zm0 3h16v2H4V5zm0 3h2v12H4V8zm3 0h2v2H7V8zm0 3h2v2H7v-2zm0 3h2v2H7v-2zm0 3h2v2H7v-2zm4-9h8v2h-8V8zm0 3h8v2h-8v-2zm0 3h4v2h-4v-2zm11-11h2v16h-2V2z"/></svg>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><title>LinkedIn Icon</title><path d="M4 2h16v2H4V2zm0 3h16v2H4V5zm0 3h2v12H4V8zm3 0h2v2H7V8zm0 3h2v2H7v-2zm0 3h2v2H7v-2zm0 3h2v2H7v-2zm4-9h8v2h-8V8zm0 3h8v2h-8v-2zm0 3h4v2h-4v-2zm11-11h2v16h-2V2z"/></svg>
               <span>LINKEDIN</span>
             </span>
             <span class="text-gray-500 group-hover:text-black">[CONNECT]</span>
           </a>
-
           <a href="tel:+31611213164" class="pixel-button group flex items-center justify-between p-3" data-tooltip="Call me on my mobile">
             <span class="flex items-center gap-3">
-               <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 2h2v2H8V2zm3 0h2v2h-2V2zm3 0h2v2h-2V2zm-9 3H2v10h2V5zm14 0V2h2v3h-2zm-4 1h-2v2h2V6zm-3 0H8v2h2V6zm-3 0H5v2h2V6zM4 8H2v2h2V8zm16 0h-2v2h2V8zM5 11h2v2H5v-2zm12 0h2v2h-2v-2zm-9 1h2v2H8v-2zm3 0h2v2h-2v-2zm3 0h2v2h-2v-2zM4 15H2v2h2v-2zm16 0h-2v2h2v-2zM8 17h8v2H8v-2zm-3 3H2v2h3v-2zm14 0h-3v2h3v-2z"/></svg>
+               <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><title>Phone Icon</title><path d="M8 2h2v2H8V2zm3 0h2v2h-2V2zm3 0h2v2h-2V2zm-9 3H2v10h2V5zm14 0V2h2v3h-2zm-4 1h-2v2h2V6zm-3 0H8v2h2V6zm-3 0H5v2h2V6zM4 8H2v2h2V8zm16 0h-2v2h2V8zM5 11h2v2H5v-2zm12 0h2v2h-2v-2zm-9 1h2v2H8v-2zm3 0h2v2h-2v-2zm3 0h2v2h-2v-2zM4 15H2v2h2v-2zm16 0h-2v2h2v-2zM8 17h8v2H8v-2zm-3 3H2v2h3v-2zm14 0h-3v2h3v-2z"/></svg>
               <span>PHONE</span>
             </span>
             <span class="text-gray-500 group-hover:text-black">[CALL]</span>
           </a>
-
           <a href="mailto:rtorsius@pm.me" class="pixel-button group flex items-center justify-between p-3" data-tooltip="Send me an email">
             <span class="flex items-center gap-3">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 5h20v2L12 13 2 7V5zm0 4v10h20V9l-10 6-10-6z"/></svg>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><title>Email Icon</title><path d="M2 5h20v2L12 13 2 7V5zm0 4v10h20V9l-10 6-10-6z"/></svg>
               <span>EMAIL</span>
             </span>
             <span class="text-gray-500 group-hover:text-black">[SEND]</span>
           </a>
-          
           <a href="https://www.youtube.com/@RTxperience" target="_blank" rel="noopener" class="pixel-button group flex items-center justify-between p-3" data-tooltip="Visit my YouTube Channel">
             <span class="flex items-center gap-3">
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h16v2H4V4zm0 3h16v10H4V7zm2 2v6h2V9H6zm3 0v6l5-3-5-3zm7 0v6h2V9h-2zm-8 9h10v2H8v-2z"/></svg>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><title>YouTube Icon</title><path d="M4 4h16v2H4V4zm0 3h16v10H4V7zm2 2v6h2V9H6zm3 0v6l5-3-5-3zm7 0v6h2V9h-2zm-8 9h10v2H8v-2z"/></svg>
               <span>YOUTUBE</span>
             </span>
             <span class="text-gray-500 group-hover:text-black">[WATCH]</span>
           </a>
         </div>
-
         <div class="mt-6 text-center text-xs text-gray-500">
           <span>(C) <span id="year"></span> ROBIN TORSIUS.</span>
         </div>
@@ -239,56 +238,49 @@
   </main>
 
   <script>
-    // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // --- NEW SCRIPT FOR FEATURES ---
-
-    // 1. Status Bar Clock
     function updateTime() {
-        const now = new Date();
-        // Options for Dutch time format in Nijkerk (CEST/CET)
-        const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/Amsterdam' };
-        const dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Europe/Amsterdam' };
-
-        const timeString = now.toLocaleTimeString('nl-NL', timeOptions);
-        const dateString = now.toLocaleDateString('nl-NL', dateOptions);
-        
-        document.getElementById('datetime').textContent = `${dateString} ${timeString}`;
+      const now = new Date();
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/Amsterdam' };
+      const dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Europe/Amsterdam' };
+      const timeString = now.toLocaleTimeString('nl-NL', timeOptions);
+      const dateString = now.toLocaleDateString('nl-NL', dateOptions);
+      document.getElementById('datetime').textContent = `${dateString} ${timeString}`;
     }
     setInterval(updateTime, 1000);
-    updateTime(); // Initial call to display time immediately
+    updateTime();
 
-    // 2. Draggable Window
-    const draggableWindow = document.getElementById('draggableWindow');
-    const titleBar = draggableWindow.querySelector('.title-bar');
-
-    let isDragging = false;
-    let offsetX, offsetY;
-
-    titleBar.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      // Calculate offset from the top-left corner of the window
-      // pageX/Y accounts for scrolling, clientX/Y does not
-      offsetX = e.pageX - draggableWindow.offsetLeft;
-      offsetY = e.pageY - draggableWindow.offsetTop;
+    // --- Draggable Window (Desktop Only) ---
+    if (window.innerWidth >= 768) {
+      const draggableWindow = document.getElementById('draggableWindow');
+      const titleBar = draggableWindow.querySelector('.title-bar');
       
-      // Add class to prevent text selection during drag
-      document.body.classList.add('no-select');
-    });
+      // Center the window initially
+      draggableWindow.style.left = `${(window.innerWidth - draggableWindow.offsetWidth) / 2}px`;
+      draggableWindow.style.top = `${(window.innerHeight - draggableWindow.offsetHeight) / 2}px`;
 
-    document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      
-      // Set the new position of the window
-      draggableWindow.style.left = `${e.pageX - offsetX}px`;
-      draggableWindow.style.top = `${e.pageY - offsetY}px`;
-    });
+      let isDragging = false;
+      let offsetX, offsetY;
 
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-      document.body.classList.remove('no-select');
-    });
+      titleBar.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.pageX - draggableWindow.offsetLeft;
+        offsetY = e.pageY - draggableWindow.offsetTop;
+        document.body.classList.add('no-select');
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        draggableWindow.style.left = `${e.pageX - offsetX}px`;
+        draggableWindow.style.top = `${e.pageY - offsetY}px`;
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        document.body.classList.remove('no-select');
+      });
+    }
   </script>
 </body>
 </html>
